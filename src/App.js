@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import HomePage from "./view/HomePage";
+import Main from "./view/Main";
 import Specials from "./view/Specials";
 import Call from "./view/Call";
 import CustomersSay from "./view/CustomersSay";
@@ -21,7 +21,7 @@ function App() {
       <TaskList tasks={tasks} />
       <nav class="nav-bar">
         <Link to="/" className="nav-item">
-          Homepage
+          Main
         </Link>
         <br />
         <Link to="/call" className="nav-item">
@@ -48,7 +48,7 @@ function App() {
 
       <main>
         <Routes>
-          <Route path="/" element={<HomePage />}></Route>
+          <Route path="/" element={<Main />}></Route>
           <Route path="/call" element={<Call />}></Route>
           <Route path="/specials" element={<Specials />}></Route>
           <Route path="/customers-say" element={<CustomersSay />}></Route>
