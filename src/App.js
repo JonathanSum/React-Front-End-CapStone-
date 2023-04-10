@@ -16,10 +16,10 @@ function App() {
     { id: 2, task: "Wash dishes", done: false },
   ]);
   return (
-    <div class="main-grid">
+    <div className="main-grid">
       <header> Header </header>
       <TaskList tasks={tasks} />
-      <nav class="nav-bar">
+      <nav className="nav-bar">
         <Link to="/" className="nav-item">
           Main
         </Link>
