@@ -40,77 +40,63 @@ const BookingForm = ({ dispatch, onSubmit }) => {
         onSubmit={handleSubmit}
         style={{ display: "grid", maxWidth: "200px", gap: "20px" }}
       >
-        <fieldset>
-          <label htmlFor="score">Score: {score} ⭐</label>
-          <input
-            id="score"
-            value={score}
-            onChange={(e) => {
-              setScore(e.target.value);
-            }}
-            type="range"
-            min="0"
-            max="10"
-          />
+        <label htmlFor="res-date">Choose date</label>
+        <input
+          type="date"
+          id="res-date"
+          value={date}
+          onChange={(e) => {
+            setDate(e.target.value);
+            console.log("e.target.value: " + e.target.value);
+            dispatch({ type: "date", value: e.target.value });
+          }}
+        />
 
-          <label htmlFor="res-date">Choose date</label>
-          <input
-            type="date"
-            id="res-date"
-            value={date}
-            onChange={(e) => {
-              setDate(e.target.value);
-              console.log("e.target.value: " + e.target.value);
-              dispatch({ type: "date", value: e.target.value });
-            }}
-          />
-
-          <label htmlFor="res-time">Choose time</label>
-          <select
-            id="res-time"
-            value={time}
-            onChange={(e) => {
-              setTime(e.target.value);
-              dispatch({ type: "time", value: e.target.value });
-            }}
-          >
-            <option value="17:00">17:00</option>
-            <option value="18:00">18:00</option>
-            <option value="19:00">19:00</option>
-            <option value="20:00">20:00</option>
-            <option value="21:00">21:00</option>
-            <option value="22:00">22:00</option>
-          </select>
-          <label htmlFor="guests">Number of guests</label>
-          <input
-            type="number"
-            placeholder="1"
-            min="1"
-            max="10"
-            id="guests"
-            value={guests}
-            onChange={(e) => {
-              setGuests(e.target.value);
-              dispatch({ type: "guests", value: e.target.value });
-            }}
-          />
-          <label htmlFor="occasion">Occassion</label>
-          <select
-            name="occasion"
-            id="occasion"
-            value={occassion}
-            onChange={(e) => {
-              setOccassion(e.target.value);
-              dispatch({ type: "occasion", value: e.target.value });
-            }}
-          >
-            <option value="Birthday">Birthday</option>
-            <option value="Anniversary">Anniversary</option>
-          </select>
-          <button data-testid="SubmitButton" type="submit">
-            Make Your reservation
-          </button>
-        </fieldset>
+        <label htmlFor="res-time">Choose time</label>
+        <select
+          id="res-time"
+          value={time}
+          onChange={(e) => {
+            setTime(e.target.value);
+            dispatch({ type: "time", value: e.target.value });
+          }}
+        >
+          <option value="17:00">17:00</option>
+          <option value="18:00">18:00</option>
+          <option value="19:00">19:00</option>
+          <option value="20:00">20:00</option>
+          <option value="21:00">21:00</option>
+          <option value="22:00">22:00</option>
+        </select>
+        <label htmlFor="guests">Number of guests</label>
+        <input
+          type="number"
+          placeholder="1"
+          min="1"
+          max="10"
+          id="guests"
+          value={guests}
+          onChange={(e) => {
+            setGuests(e.target.value);
+            dispatch({ type: "guests", value: e.target.value });
+          }}
+        />
+        <label htmlFor="occasion">Occassion</label>
+        <select
+          name="occasion"
+          id="occasion"
+          value={occassion}
+          onChange={(e) => {
+            setOccassion(e.target.value);
+            dispatch({ type: "occasion", value: e.target.value });
+          }}
+        >
+          <option value="Birthday">Birthday</option>
+          <option value="Anniversary">Anniversary</option>
+        </select>
+        <button data-testid="SubmitButton" type="submit">
+          Make Your reservation
+        </button>
       </form>
     </>
   );
