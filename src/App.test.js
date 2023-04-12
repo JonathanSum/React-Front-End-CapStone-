@@ -36,23 +36,41 @@ test("initializeTimes", () => {
 test("updateTimes", () => {
   // render the Main component
 
-  const score = "3";
   const date = "2023-04-07";
+  const time = "17:00";
+  const guests = "2";
+  const occassion = "Anniversary";
   const handleSubmit = jest.fn();
 
   render(<Main onSubmit={handleSubmit} />);
   const submitButton = screen.getByTestId("SubmitButton");
 
+  //1
   const dateInput = screen.getByLabelText(/Choose date/);
 
   fireEvent.change(dateInput, { target: { value: date } });
 
-  const rangeInput = screen.getByLabelText(/Score:/);
-  fireEvent.change(rangeInput, { target: { value: score } });
+  //2
+  const timeInput = screen.getByLabelText(/Choose time/);
+
+  fireEvent.change(timeInput, { target: { value: time } });
+
+  //3
+  const guestsInput = screen.getByLabelText(/Number of guests/);
+
+  fireEvent.change(guestsInput, { target: { value: guests } });
+
+  //4
+  const occassionInput = screen.getByLabelText(/Occassion/);
+
+  fireEvent.change(occassionInput, { target: { value: occassion } });
 
   fireEvent.click(submitButton);
 
   expect(handleSubmit).toHaveBeenCalledWith({
     date,
+    time,
+    guests,
+    occassion,
   });
 });

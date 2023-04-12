@@ -7,24 +7,18 @@ const BookingForm = ({ dispatch, onSubmit }) => {
   const [guests, setGuests] = useState(0);
   const [occassion, setOccassion] = useState("");
 
-  const [score, setScore] = useState("10");
   const clearForm = () => {
     setDate("");
     setTime("");
     setGuests(0);
     setOccassion("");
   };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // onSubmit({ date, time, guests, occassion });
-  //   onSubmit({ date });
-  //   alert("Booked!");
-  //   clearForm();
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ date });
+    // onSubmit({ date, time, guests, occassion });
+    onSubmit({ date, time, guests, occassion });
+    alert("Booked!");
+    clearForm();
   };
 
   useEffect(() => {
