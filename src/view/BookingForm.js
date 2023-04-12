@@ -42,7 +42,7 @@ const BookingForm = ({ dispatch }) => {
           value={date}
           onChange={(e) => {
             setDate(e.target.value);
-            console.log("typeof: " + dispatch);
+            console.log("e.target.value: " + e.target.value);
             dispatch({ type: "date", value: e.target.value });
           }}
         ></input>
