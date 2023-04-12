@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import BookingForm from "./view/BookingForm";
 import Main from "./view/Main";
 
@@ -35,24 +35,24 @@ test("initializeTimes", () => {
 
 test("updateTimes", () => {
   // render the Main component
-  render(<Main />);
-  const dateData = screen.getByTestId("testDate");
 
-  // test assumption
-  expect(dateData).toBeEmptyDOMElement();
+  const score = "3";
+  const date = "2023-04-07";
+  const handleSubmit = jest.fn();
 
-  const timeData = screen.getByTestId("testTime");
+  render(<Main onSubmit={handleSubmit} />);
+  const submitButton = screen.getByTestId("SubmitButton");
 
-  // test assumption
-  expect(timeData).toBeEmptyDOMElement();
+  const dateInput = screen.getByLabelText(/Choose date/);
 
-  const guestsData = screen.getByTestId("testGuests");
+  fireEvent.change(dateInput, { target: { value: date } });
 
-  // test assumption
-  expect(guestsData).toHaveTextContent(0);
+  const rangeInput = screen.getByLabelText(/Score:/);
+  fireEvent.change(rangeInput, { target: { value: score } });
 
-  const occassionData = screen.getByTestId("testOccassion");
+  fireEvent.click(submitButton);
 
-  // test assumption
-  expect(occassionData).toHaveTextContent("");
+  expect(handleSubmit).toHaveBeenCalledWith({
+    date,
+  });
 });

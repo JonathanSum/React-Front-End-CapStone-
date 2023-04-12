@@ -8,7 +8,7 @@ const updateTimes = (state, action) => {
   if (action.type === "occassion") return { ...state, occassion: action.value };
   return state;
 };
-const Main = () => {
+const Main = ({ onSubmit }) => {
   const initializeTimes = {
     date: "",
     time: "",
@@ -39,7 +39,7 @@ const Main = () => {
         Occassion:{" "}
         <span data-testid="testOccassion">{availableTimes.occassion}</span>
       </div>
-      <BookingForm dispatch={dispatch} />
+      <BookingForm dispatch={dispatch} onSubmit={onSubmit} />
     </div>
   );
 };
