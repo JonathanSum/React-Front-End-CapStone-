@@ -9,6 +9,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import BookingPage from "./view/BookingPage";
 import { useState } from "react";
 import TaskList from "./view/TaskList";
+import ConfirmedBooking from "./view/ConfirmedBooking ";
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -54,6 +55,10 @@ function App() {
           <Route path="/customers-say" element={<CustomersSay />}></Route>
           <Route path="/chicago" element={<Chicago />}></Route>
           <Route path="/booking-page" element={<BookingPage />}></Route>
+          <Route
+            path="/confirmed-booking"
+            element={<ConfirmedBooking />}
+          ></Route>
         </Routes>
       </main>
 

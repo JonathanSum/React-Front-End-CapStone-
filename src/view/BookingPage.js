@@ -1,5 +1,4 @@
 import { useState } from "react";
-import BookingForm from "./BookingForm";
 
 const BookingPage = () => {
   const [date, setDate] = useState("");
@@ -21,7 +20,7 @@ const BookingPage = () => {
     alert("Booked!");
     clearForm();
   };
-  return <BookingForm />;
+  return <div>BookingPage</div>;
 };
 
 export default BookingPage;

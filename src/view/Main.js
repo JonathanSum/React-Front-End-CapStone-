@@ -1,7 +1,7 @@
 import React from "react";
 import { useReducer } from "react";
 import BookingForm from "./BookingForm";
-import { fetchAPI } from "../controller/utils";
+import { fetchAPI, submitAPI } from "../controller/utils";
 const updateTimes = (state, action) => {
   if (action.type === "date")
     return {
@@ -30,6 +30,10 @@ const Main = ({ onSubmit }) => {
   };
 
   const [availableTimes, dispatch] = useReducer(updateTimes, initializeTimes);
+
+  const submitForm = (formData) => {
+    return submitAPI(formData);
+  };
   console.log("testing availableTime: ", availableTimes);
 
   //console.log("availableTimes: " + JSON.stringify(availableTimes));
@@ -53,8 +57,8 @@ const Main = ({ onSubmit }) => {
       </div>
       <BookingForm
         dispatch={dispatch}
-        onSubmit={onSubmit}
         times={availableTimes.time}
+        submitAPI={submitForm}
       />
     </div>
   );

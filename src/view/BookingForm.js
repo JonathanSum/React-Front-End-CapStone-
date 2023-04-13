@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import { fetchAPI, submitAPI } from "../controller/utils";
+import { fetchAPI } from "../controller/utils";
+import { useNavigate } from "react-router-dom";
 
 //TODO I say it is better to put the avaible time
 //TODO make a useEffect if the times props change
 //and update the time list
-const BookingForm = ({ dispatch, onSubmit, times }) => {
+const BookingForm = ({ dispatch, onSubmit, times, submitAPI }) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState(times);
   const [guests, setGuests] = useState(0);
   const [occassion, setOccassion] = useState("");
   const [availableTimes, setAvailableTimes] = useState([]);
+
+  const navigate = useNavigate();
+
   const clearForm = () => {
     //TODO set the date to be today's day
     setDate("");
@@ -21,14 +25,10 @@ const BookingForm = ({ dispatch, onSubmit, times }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (onSubmit === null) {
-      if (submitAPI({ date, time, guests, occassion })) {
-        alert("Booked!");
-        clearForm();
-      }
-    } else {
-      console.log("Yes?");
-      onSubmit({ date, time, guests, occassion });
+    if (submitAPI({ date, time, guests, occassion })) {
+      // alert("Booked!");
+      navigate("/confirmed-booking");
+      clearForm();
     }
   };
 
