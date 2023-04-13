@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useReducer } from "react";
 import BookingForm from "./BookingForm";
+import { fetchAPI } from "../controller/utils";
 const updateTimes = (state, action) => {
   if (action.type === "date") return { ...state, date: action.value };
   if (action.type === "time") return { ...state, time: action.value };
@@ -8,10 +9,14 @@ const updateTimes = (state, action) => {
   if (action.type === "occassion") return { ...state, occassion: action.value };
   return state;
 };
+
 const Main = ({ onSubmit }) => {
+  const currDate = new Date();
   const initializeTimes = {
-    date: "",
-    time: "",
+    date: `${currDate.getFullYear()}-${
+      currDate.getMonth() + 1
+    }-${currDate.getDate()}`,
+    time: fetchAPI(currDate),
     guests: 0,
     occassion: "",
   };
@@ -36,7 +41,7 @@ const Main = ({ onSubmit }) => {
         Guests: <span data-testid="testGuests">{availableTimes.guests}</span>
       </div>
       <div>
-        Occassion:{" "}
+        Occassion:
         <span data-testid="testOccassion">{availableTimes.occassion}</span>
       </div>
       <BookingForm dispatch={dispatch} onSubmit={onSubmit} />

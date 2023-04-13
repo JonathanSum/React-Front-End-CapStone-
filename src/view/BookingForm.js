@@ -15,7 +15,6 @@ const BookingForm = ({ dispatch, onSubmit }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // onSubmit({ date, time, guests, occassion });
     onSubmit({ date, time, guests, occassion });
     alert("Booked!");
     clearForm();
