@@ -1,23 +1,35 @@
 import { useState, useEffect } from "react";
 import React from "react";
+import { fetchAPI, submitAPI } from "../controller/utils";
 
-const BookingForm = ({ dispatch, onSubmit }) => {
+//TODO I say it is better to put the avaible time
+//TODO make a useEffect if the times props change
+//and update the time list
+const BookingForm = ({ dispatch, onSubmit, times }) => {
   const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState(times);
   const [guests, setGuests] = useState(0);
   const [occassion, setOccassion] = useState("");
-
+  const [availableTimes, setAvailableTimes] = useState([]);
   const clearForm = () => {
+    //TODO set the date to be today's day
     setDate("");
-    setTime("");
+    setTime(times);
     setGuests(0);
     setOccassion("");
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ date, time, guests, occassion });
-    alert("Booked!");
-    clearForm();
+
+    if (onSubmit === null) {
+      if (submitAPI({ date, time, guests, occassion })) {
+        alert("Booked!");
+        clearForm();
+      }
+    } else {
+      console.log("Yes?");
+      onSubmit({ date, time, guests, occassion });
+    }
   };
 
   useEffect(() => {
@@ -40,26 +52,39 @@ const BookingForm = ({ dispatch, onSubmit }) => {
           value={date}
           onChange={(e) => {
             setDate(e.target.value);
-            console.log("e.target.value: " + e.target.value);
-            dispatch({ type: "date", value: e.target.value });
+            const avaiTimesList = fetchAPI(
+              new Date(
+                parseInt(e.target.value.substring(0, 4)),
+                parseInt(e.target.value.substring(5, 7)),
+                parseInt(e.target.value.substring(8, 10))
+              )
+            );
+            setTime(avaiTimesList);
+            console.log(
+              "Choose date dispatch!!!!: " +
+                dispatch({
+                  type: "date",
+                  selDate: e.target.value,
+                  avaiTimes: avaiTimesList,
+                })
+            );
           }}
         />
 
         <label htmlFor="res-time">Choose time</label>
         <select
           id="res-time"
-          value={time}
+          value={time[0]}
           onChange={(e) => {
             setTime(e.target.value);
             dispatch({ type: "time", value: e.target.value });
           }}
         >
-          <option value="17:00">17:00</option>
-          <option value="18:00">18:00</option>
-          <option value="19:00">19:00</option>
-          <option value="20:00">20:00</option>
-          <option value="21:00">21:00</option>
-          <option value="22:00">22:00</option>
+          {time.map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
         </select>
         <label htmlFor="guests">Number of guests</label>
         <input

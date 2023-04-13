@@ -1,9 +1,14 @@
 import React from "react";
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 import BookingForm from "./BookingForm";
 import { fetchAPI } from "../controller/utils";
 const updateTimes = (state, action) => {
-  if (action.type === "date") return { ...state, date: action.value };
+  if (action.type === "date")
+    return {
+      ...state,
+      date: action.selDate,
+      time: action.avaiTimes,
+    };
   if (action.type === "time") return { ...state, time: action.value };
   if (action.type === "guests") return { ...state, guests: action.value };
   if (action.type === "occassion") return { ...state, occassion: action.value };
@@ -11,8 +16,11 @@ const updateTimes = (state, action) => {
 };
 
 const Main = ({ onSubmit }) => {
+  //This onSubmit is for unit testing.
   const currDate = new Date();
+
   const initializeTimes = {
+    //Date format YYYY-MM-DD
     date: `${currDate.getFullYear()}-${
       currDate.getMonth() + 1
     }-${currDate.getDate()}`,
@@ -20,10 +28,9 @@ const Main = ({ onSubmit }) => {
     guests: 0,
     occassion: "",
   };
+
   const [availableTimes, dispatch] = useReducer(updateTimes, initializeTimes);
-  // const updateTimes = () => {
-  //   return availableTimes;
-  // };
+  console.log("testing availableTime: ", availableTimes);
 
   //console.log("availableTimes: " + JSON.stringify(availableTimes));
   console.log("availableTimes: " + availableTimes.date);
@@ -44,7 +51,11 @@ const Main = ({ onSubmit }) => {
         Occassion:
         <span data-testid="testOccassion">{availableTimes.occassion}</span>
       </div>
-      <BookingForm dispatch={dispatch} onSubmit={onSubmit} />
+      <BookingForm
+        dispatch={dispatch}
+        onSubmit={onSubmit}
+        times={availableTimes.time}
+      />
     </div>
   );
 };
