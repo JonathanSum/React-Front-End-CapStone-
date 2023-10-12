@@ -8,10 +8,10 @@ import { useNavigate } from "react-router-dom";
 //and update the time list
 const BookingForm = ({ dispatch, onSubmit, times, submitAPI }) => {
   const [date, setDate] = useState("");
-  const [time, setTime] = useState(times);
+  const [time, setTime] = useState(times||[]);
   const [guests, setGuests] = useState(0);
   const [occassion, setOccassion] = useState("");
-  const [availableTimes, setAvailableTimes] = useState([]);
+
 
   const navigate = useNavigate();
 
@@ -65,7 +65,7 @@ const BookingForm = ({ dispatch, onSubmit, times, submitAPI }) => {
                 dispatch({
                   type: "date",
                   selDate: e.target.value,
-                  avaiTimes: avaiTimesList,
+                  avaiTimes: [avaiTimesList]
                 })
             );
           }}

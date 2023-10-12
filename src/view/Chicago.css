@@ -1,41 +1,3 @@
-/* div.main-grid {
-  display: grid;
-
-  height: 100vh;
-  width: 100vw;
-  grid-template-areas:
-    "head head"
-    "nav  main"
-    "footer  footer";
-
-  grid-template-rows: 30px 1fr 30px;
-
-  grid-template-columns: 150px 1fr;
-}
-
-header {
-  grid-area: head;
-
-  background-color: lightsalmon;
-}
-
-.nav-bar {
-  grid-area: nav;
-
-  background-color: lightblue;
-}
-
-main {
-  grid-area: main;
-
-  background-color: lightyellow;
-}
-
-footer {
-  grid-area: footer;
-
-  background-color: firebrick;
-} */
 body {
     background-color: #edefee;
   
@@ -92,7 +54,7 @@ body {
     margin: 20px;
     /* text-align: center; */
     padding: 20px;
-    background-image: url("./resource/discount.jpg");
+    background-image: url("../resource/discount.jpg");
     background-size: cover;
     background-position: center;
     border-radius: 25px;

@@ -1,26 +1,69 @@
-import { useState } from "react";
+import React from "react";
+import { useReducer } from "react";
+import BookingForm from "./BookingForm";
+import { fetchAPI, submitAPI } from "../controller/utils";
+import "./BookingPage.css";
+const updateTimes = (state, action) => {
+  if (action.type === "date")
+    return {
+      ...state,
+      date: action.selDate,
+      time: action.avaiTimes,
+    };
+  if (action.type === "time") return { ...state, time: action.value };
+  if (action.type === "guests") return { ...state, guests: action.value };
+  if (action.type === "occassion") return { ...state, occassion: action.value };
+  return state;
+};
 
-const BookingPage = () => {
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [guests, setGuests] = useState(0);
-  const [occassion, setOccassion] = useState("");
+const BookingPage = ({ onSubmit }) => {
+  //This onSubmit is for unit testing.
+  const currDate = new Date();
 
-  const getIsFormValid = () => {
-    return date && time && guests > 0 && occassion;
+  const initializeTimes = {
+    //Date format YYYY-MM-DD
+    date: `${currDate.getFullYear()}-${
+      currDate.getMonth() + 1
+    }-${currDate.getDate()}`,
+    time: fetchAPI(currDate),
+    guests: 0,
+    occassion: "",
   };
-  const clearForm = () => {
-    setDate("");
-    setTime("");
-    setGuests(0);
-    setOccassion("");
+
+  const [availableTimes, dispatch] = useReducer(updateTimes, initializeTimes);
+
+  const submitForm = (formData) => {
+    return submitAPI(formData);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Booked!");
-    clearForm();
-  };
-  return <div>BookingPage</div>;
+  console.log("testing availableTime: ", availableTimes);
+
+  //console.log("availableTimes: " + JSON.stringify(availableTimes));
+  console.log("availableTimes: " + availableTimes.date);
+  console.log("typeof dispatch: " + dispatch);
+  return (
+    <div style={{background:"#3b2e88", borderRadius:"5em", padding: "3em", margin:"2em"}}>
+      <div data-testid="currentNumber">{availableTimes.date}</div>
+      <div>
+        Date: <span data-testid="testDate">{availableTimes.date}</span>
+      </div>
+      <div>
+        Time: <span data-testid="testTime">{availableTimes.time}</span>
+      </div>
+      <div>
+        Guests: <span data-testid="testGuests">{availableTimes.guests}</span>
+      </div>
+      <div>
+        Occassion:
+        <span data-testid="testOccassion">{availableTimes.occassion}</span>
+      </div>
+      <BookingForm
+        dispatch={dispatch}
+        times={availableTimes.time}
+        submitAPI={submitForm}
+      />
+    </div>
+  );
 };
 
 export default BookingPage;
+

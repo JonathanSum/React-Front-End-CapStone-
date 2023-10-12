@@ -2,6 +2,10 @@ import React from "react";
 import { useReducer } from "react";
 import BookingForm from "./BookingForm";
 import { fetchAPI, submitAPI } from "../controller/utils";
+import "./Chicago.css";
+import j1 from'../resource/j1.jpg';
+import sc from'../resource/sc.jpg';
+import open from'../resource/open.jpg';
 const updateTimes = (state, action) => {
   if (action.type === "date")
     return {
@@ -40,27 +44,55 @@ const Main = ({ onSubmit }) => {
   console.log("availableTimes: " + availableTimes.date);
   console.log("typeof dispatch: " + dispatch);
   return (
-    <div>
-      <div data-testid="currentNumber">{availableTimes.date}</div>
-      <div>
-        Date: <span data-testid="testDate">{availableTimes.date}</span>
-      </div>
-      <div>
-        Time: <span data-testid="testTime">{availableTimes.time}</span>
-      </div>
-      <div>
-        Guests: <span data-testid="testGuests">{availableTimes.guests}</span>
-      </div>
-      <div>
-        Occassion:
-        <span data-testid="testOccassion">{availableTimes.occassion}</span>
-      </div>
-      <BookingForm
-        dispatch={dispatch}
-        times={availableTimes.time}
-        submitAPI={submitForm}
-      />
-    </div>
+    <main className="container">
+    <section className="discount">
+      <article>
+        <h2>20% Off This Weekend</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis
+          inventore libero, non illum reiciendis accusamus, facilis mollitia
+          rem praesentium maiores quod dicta ad aliquam sit dolores saepe
+          corporis. Maxime, nesciunt!
+        </p>
+      </article>
+    </section>
+    <section className="c1 c-item">
+      <article>
+        <h2>Our Jewelry</h2>
+        <img src={j1} alt="Jewelry" width="300px" />
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis
+          inventore libero, non illum reiciendis accusamus, facilis mollitia
+          rem praesentium maiores quod dicta ad aliquam sit dolores saepe
+          corporis. Maxime, nesciunt!
+        </p>
+      </article>
+    </section>
+    <section className="c2 c-item">
+      <article>
+        <h2>Make a Schedule</h2>
+        <img src={sc} alt="schedule" height="200px" />
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis
+          inventore libero, non illum reiciendis accusamus, facilis mollitia
+          rem praesentium maiores quod dicta ad aliquam sit dolores saepe
+          corporis. Maxime, nesciunt!
+        </p>
+      </article>
+    </section>
+    <section className="c3 c-item">
+      <article>
+        <h2>Opening Hours</h2>
+        <img src={open} alt="hours" height="200px" />
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis
+          inventore libero, non illum reiciendis accusamus, facilis mollitia
+          rem praesentium maiores quod dicta ad aliquam sit dolores saepe
+          corporis. Maxime, nesciunt!
+        </p>
+      </article>
+    </section>
+  </main>
   );
 };
 
